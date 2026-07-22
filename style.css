@@ -1,0 +1,209 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Courier New", "Consolas", monospace;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#phone {
+  width: 240px;
+  height: 320px;
+  background: var(--bg, #c7d6c0);
+  color: var(--fg, #1c2b17);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 0 6px #222, 0 0 20px rgba(0,0,0,0.6);
+  image-rendering: pixelated;
+}
+
+/* ---------- Header ---------- */
+
+#header {
+  height: 22px;
+  flex: 0 0 22px;
+  background: var(--header-bg, #1c2b17);
+  color: var(--header-fg, #c7d6c0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+/* ---------- Screens ---------- */
+
+#screens {
+  flex: 1 1 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+}
+.screen.active { display: flex; }
+
+.screen-heading {
+  font-size: 9px;
+  font-weight: bold;
+  text-align: center;
+  padding: 6px 0 2px;
+  letter-spacing: 1px;
+}
+
+/* ---------- Menu list ---------- */
+
+.menu-list {
+  list-style: none;
+  padding: 6px 8px;
+  flex: 1 1 auto;
+}
+
+.menu-list li {
+  font-size: 10px;
+  line-height: 22px;
+  padding: 0 4px;
+  white-space: nowrap;
+}
+
+.menu-list li.sel {
+  background: var(--sel-bg, #1c2b17);
+  color: var(--sel-fg, #c7d6c0);
+}
+
+.hint-text {
+  font-size: 8px;
+  padding: 4px 10px 8px;
+  opacity: 0.8;
+  line-height: 1.4;
+}
+
+/* ---------- Game screen ---------- */
+
+#gameArea {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 2px 4px;
+}
+
+#board {
+  border: 1px solid var(--fg, #1c2b17);
+  image-rendering: pixelated;
+}
+
+#sidePanel {
+  width: 78px;
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.panel-box {
+  background: var(--panel-bg, #b7c8ae);
+  border: 1px solid var(--fg, #1c2b17);
+  padding: 3px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.panel-label {
+  font-size: 7px;
+  letter-spacing: 1px;
+  opacity: 0.75;
+}
+
+.panel-val {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+#nextCanvas {
+  width: 56px;
+  height: 56px;
+}
+
+/* ---------- Pause / Game over ---------- */
+
+.center-msg {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 6px;
+}
+
+.center-msg .big {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.center-msg .small {
+  font-size: 9px;
+}
+
+.center-msg p {
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.tp-title {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding-bottom: 4px;
+}
+
+.tp-sub {
+  font-size: 9px;
+  font-weight: bold;
+  padding-top: 4px;
+}
+
+/* ---------- Help / About text pages ---------- */
+
+.text-page {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 8px 10px;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.text-page p { padding: 2px 0; }
+
+/* ---------- Softkey bar ---------- */
+
+#softkeys {
+  flex: 0 0 22px;
+  height: 22px;
+  background: var(--soft-bg, #1c2b17);
+  color: var(--soft-fg, #c7d6c0);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  font-size: 9px;
+  font-weight: bold;
+}

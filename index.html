@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=240, height=320, user-scalable=no">
+<title>Cloud Tetris</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="phone">
+
+  <!-- Header -->
+  <div id="header">
+    <span id="headerTitle">CLOUD TETRIS</span>
+  </div>
+
+  <!-- Screens -->
+  <div id="screens">
+
+    <section id="screen-menu" class="screen active">
+      <ul class="menu-list" data-menu="main">
+        <li data-action="play" class="sel">▸ Play</li>
+        <li data-action="mode">  Game Mode</li>
+        <li data-action="theme"> Theme</li>
+        <li data-action="help">  Help</li>
+        <li data-action="about"> About</li>
+      </ul>
+    </section>
+
+    <section id="screen-mode" class="screen">
+      <div class="screen-heading">GAME MODE</div>
+      <ul class="menu-list" id="modeList" data-menu="mode"></ul>
+    </section>
+
+    <section id="screen-theme" class="screen">
+      <div class="screen-heading">THEME</div>
+      <ul class="menu-list" id="themeList" data-menu="theme"></ul>
+    </section>
+
+    <section id="screen-game" class="screen">
+      <div id="gameArea">
+        <canvas id="board" width="120" height="240"></canvas>
+        <div id="sidePanel">
+          <div class="panel-box">
+            <div class="panel-label">NEXT</div>
+            <canvas id="nextCanvas" width="56" height="56"></canvas>
+          </div>
+          <div class="panel-box">
+            <div class="panel-label">SCORE</div>
+            <div class="panel-val" id="scoreVal">0</div>
+          </div>
+          <div class="panel-box">
+            <div class="panel-label">LEVEL</div>
+            <div class="panel-val" id="levelVal">1</div>
+          </div>
+          <div class="panel-box">
+            <div class="panel-label">LINES</div>
+            <div class="panel-val" id="linesVal">0</div>
+          </div>
+          <div class="panel-box" id="timerBox" style="display:none">
+            <div class="panel-label">TIME</div>
+            <div class="panel-val" id="timeVal">00:00</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-pause" class="screen">
+      <div class="center-msg">
+        <div class="big">PAUSED</div>
+        <div class="small">Press 0 to resume</div>
+        <div class="small">RSK to quit to menu</div>
+      </div>
+    </section>
+
+    <section id="screen-gameover" class="screen">
+      <div class="center-msg" id="gameoverMsg"></div>
+    </section>
+
+    <section id="screen-help" class="screen">
+      <div class="text-page" id="helpText"></div>
+    </section>
+
+    <section id="screen-about" class="screen">
+      <div class="text-page" id="aboutText"></div>
+    </section>
+
+  </div>
+
+  <!-- Softkey bar -->
+  <div id="softkeys">
+    <span id="lsk">Select</span>
+    <span id="rsk">Exit</span>
+  </div>
+
+</div>
+
+<script src="themes.js"></script>
+<script src="tetromino.js"></script>
+<script src="game.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
