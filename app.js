@@ -32,7 +32,8 @@ const SOFTKEYS = {
   pause: { l: "Resume", r: "Quit" },
   gameover: { l: "Retry", r: "Menu" },
   help: { l: " ", r: "Back" },
-  about: { l: " ", r: "Back" }
+  about: { l: " ", r: "Back" },
+  exit: { l: " ", r: "Exit" }
 };
 
 function showScreen(name) {
@@ -232,10 +233,22 @@ function handleSelect() {
   }
 }
 
+function exitApp() {
+  // window.close() only succeeds for tabs/windows opened by script (or
+  // inside a hosting shell like the Cloud Phone client) — most desktop
+  // browsers silently block it for a normal manually-opened tab.
+  window.close();
+  // Fallback: if we're still here shortly after, show a goodbye screen so
+  // RSK still visibly does something instead of appearing broken.
+  setTimeout(() => {
+    if (!document.hidden) showScreen("exit");
+  }, 100);
+}
+
 function handleBack() {
   switch (state.screen) {
     case "menu":
-      // RSK Exit — nothing to exit to in a browser tab; no-op / could close.
+      exitApp();
       break;
     case "mode":
     case "theme":
@@ -251,6 +264,9 @@ function handleBack() {
       break;
     case "gameover":
       showScreen("menu");
+      break;
+    case "exit":
+      exitApp();
       break;
   }
 }
