@@ -1,7 +1,7 @@
 // Cloud Tetris — App shell (navigation, input, softkeys)
 
 const GAME_NAME = "Cloud Tetris";
-const GAME_VERSION = "1.0.0";
+const GAME_VERSION = "2.0.1";
 const GAME_DEVELOPER = "Tasmon Islam";
 
 const MODES = [
@@ -128,11 +128,6 @@ el("aboutText").innerHTML = `
 <div class="tp-title">${GAME_NAME}</div>
 <p>Version ${GAME_VERSION}</p>
 <p>Developer: ${GAME_DEVELOPER}</p>
-<p class="tp-sub">&nbsp;</p>
-<p>Built for Cloud Phone — small
-screens, keyboard-first, no
-touch required.</p>
-<p>Thanks for playing.</p>
 `;
 
 // ---------- Game control ----------
