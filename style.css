@@ -23,6 +23,7 @@ html, body {
   flex-direction: column;
   box-shadow: 0 0 0 6px #222, 0 0 20px rgba(0,0,0,0.6);
   image-rendering: pixelated;
+  outline: none;
 }
 
 /* ---------- Header ---------- */

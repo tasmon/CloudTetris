@@ -43,6 +43,12 @@ function showScreen(name) {
   const sk = SOFTKEYS[name];
   el("lsk").textContent = sk.l;
   el("rsk").textContent = sk.r;
+  // Keep keyboard focus anchored inside the app. Without an actively
+  // focused element, some remote-browser shells (Cloud Phone included)
+  // fall back to their own native "Options" action on a softkey press
+  // instead of delivering the keydown to the page — most noticeable on
+  // first load, before anything has ever taken focus.
+  el("phone").focus({ preventScroll: true });
 }
 
 // ---------- Build menu lists ----------
@@ -297,7 +303,13 @@ document.addEventListener("keydown", (e) => {
   const key = e.key;
 
   // Global softkeys
-  if (key === "Enter") { handleSelect(); return; }
+  if (key === "Enter") {
+    // preventDefault stops any native fallback action (e.g. an "Options"
+    // menu) the hosting browser/shell might otherwise attach to the LSK.
+    e.preventDefault();
+    handleSelect();
+    return;
+  }
   if (key === "Escape" || key === "Backspace") {
     // Desktop/simulator convenience only — real RSK is handled via
     // popstate above. Prevent Backspace from triggering an actual
@@ -342,8 +354,13 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+// Some remote-browser shells open a native context/options menu on a
+// softkey press if nothing else claims it. Block that outright.
+document.addEventListener("contextmenu", (e) => e.preventDefault());
+
 // ---------- Init ----------
 
 applyTheme(state.selectedTheme);
 refreshMainMenu();
 showScreen("menu");
+el("phone").focus({ preventScroll: true });
