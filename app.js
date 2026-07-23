@@ -297,15 +297,20 @@ window.addEventListener("popstate", () => {
 document.addEventListener("keydown", (e) => {
   const key = e.key;
 
-  // Global softkeys
-  if (key === "Enter") {
+  // Global softkeys.
+  // "Enter"/"Escape" cover keyboard testing in a desktop browser.
+  // "SoftLeft"/"SoftRight" are the standard key values feature-phone
+  // platforms (Cloud Phone included) use for the physical LSK/RSK — this
+  // is likely what was reaching the OS's native Options menu instead of
+  // us, since we were previously only listening for "Enter".
+  if (key === "Enter" || key === "SoftLeft") {
     // preventDefault stops any native fallback action (e.g. an "Options"
     // menu) the hosting browser/shell might otherwise attach to the LSK.
     e.preventDefault();
     handleSelect();
     return;
   }
-  if (key === "Escape" || key === "Backspace") {
+  if (key === "Escape" || key === "Backspace" || key === "SoftRight") {
     // Desktop/simulator convenience only — real RSK is handled via
     // popstate above. Prevent Backspace from triggering an actual
     // browser navigation.
@@ -359,3 +364,10 @@ applyTheme(state.selectedTheme);
 refreshMainMenu();
 showScreen("menu");
 el("phone").focus({ preventScroll: true });
+
+// If a native overlay (e.g. the shell's own menu) briefly takes focus,
+// reclaim it as soon as this page is visible/active again.
+window.addEventListener("pageshow", () => el("phone").focus({ preventScroll: true }));
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) el("phone").focus({ preventScroll: true });
+});
