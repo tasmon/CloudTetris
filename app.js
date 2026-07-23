@@ -255,12 +255,41 @@ function handleBack() {
   }
 }
 
+// ---------- RSK / back handling ----------
+//
+// Per the Cloud Phone docs, the right softkey (RSK) can't be read as a normal
+// keydown — it only surfaces as a "back" action, which on the device maps to
+// browser history navigation. Without intercepting that, RSK always falls
+// through to the OS default (exit), no matter what the softkey bar says.
+//
+// Fix: keep a permanent history "guard" entry. Every time RSK/back fires
+// (popstate), run our own handleBack() logic, then immediately push a fresh
+// guard entry so the next RSK press is caught the same way instead of
+// leaving the widget.
+
+function pushBackGuard() {
+  history.pushState({ cloudTetrisGuard: true }, "", location.href);
+}
+pushBackGuard();
+
+window.addEventListener("popstate", () => {
+  handleBack();
+  pushBackGuard();
+});
+
 document.addEventListener("keydown", (e) => {
   const key = e.key;
 
   // Global softkeys
   if (key === "Enter") { handleSelect(); return; }
-  if (key === "Escape" || key === "Backspace") { handleBack(); return; }
+  if (key === "Escape" || key === "Backspace") {
+    // Desktop/simulator convenience only — real RSK is handled via
+    // popstate above. Prevent Backspace from triggering an actual
+    // browser navigation.
+    e.preventDefault();
+    handleBack();
+    return;
+  }
 
   if (state.screen === "menu") {
     if (key === "ArrowUp" || key === "2") navigateList("menu", MAIN_ACTIONS, -1);
