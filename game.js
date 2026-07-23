@@ -164,7 +164,7 @@ class Game {
   }
 
   dropIntervalMs() {
-    return Math.max(90, 800 - (this.level - 1) * 65);
+    return Math.max(150, 1050 - (this.level - 1) * 55);
   }
 
   // Advances game time; called every animation frame with delta ms.
